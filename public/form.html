@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My awesome title</title>
+</head>
+<body>
+    <form method ="post" action="/formHandler" id="myForm">
+        <input type="text" name="myInput" value = "default" id = "myInput">
+        <input type = "text" name = "myOtherInput" id="myOtherInput">
+        <input type ="date" name ="myDate" id="MyDate">
+        <input type="color" name = "myColor" id="myColor">
+        <button type="submit">Send</button>
+    </form>
+    <p id = "responseText">Hi, hello there</p>
+</body>
+
+<script>
+    function sendAjax(e){
+        e.preventDefault();
+
+        //Form data is a iterable list of key-value pair like map. In form, key is name, and value is the input value
+        const formData = new FormData(e.target) //JS object
+
+        //Object.fromEntries transform a list of key-value pair data into object
+        const formProps = Object.fromEntries(formData) 
+        /*what inside of formProps now
+            {
+                "myInput": "default",
+                "myOtherInput" : "",
+                ...
+            }
+        */
+        //transform object to url encoded object
+        const urlEncoded = new URLSearchParams(formProps);
+        // return a raw url encoded string 
+        // urlEncoded.toString()   //myInput=default&myOtherInput=&myDate
+        
+        let request = new XMLHttpRequest();
+
+        //this function will be called when the response has finished
+        request.addEventListener("load", ()=>{
+            let response = JSON.parse(request.responseText)
+            document.getElementById("responseText").innerHTML = response["message"]
+        })
+        //open a post request
+        request.open("POST", "/formHandler");
+        // we must send porper header along with the request
+        request.setRequestHeader("Content-Type", "application/x-wwww-form-urlencoded");
+        request.send(urlEncoded.toString());
+    }
+    
+
+    document.getElementById("myForm").onsubmit = sendAjax
+</script>
+</html>

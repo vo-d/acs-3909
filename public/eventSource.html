@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>The clock</title> 
+</head> 
+<body> 
+    <button onclick="enough()">Enough</button>
+    <ul></ul> 
+</body> 
+
+<script> 
+    const eventList = document.querySelector("ul");
+
+    const evtSource = new EventSource("/ticktok");
+    evtSource.onmessage() = (e)=>{
+        let newElement = document.createElement("li");
+        newElement.textContent = `${e.data}`;
+        eventList.appendChild(newElement);
+    }
+    evtSource.addEventListener("gong", (e)=>{
+        let newElement = document.createElement("li");
+        newElement.textContent = `${e.origin} ${e.data.toUpperCase()}`;
+        eventList.appendChild(newElement);
+    })
+    function enough(){
+        evtSource.close()
+    }
+
+</script>
+</html>
