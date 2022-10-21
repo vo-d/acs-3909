@@ -12,6 +12,14 @@ async function connectMongoDB(){
     const mycol = await client.db("express").collection("colors")
     // find the first one in the database 
     const doc = await mycol.findOne({})
+    // find
+    const cursor = await mycol.find({})
+
+    const arrayOfDocs = await cursor.toArray();
+
+    cursor.stream().on("data", (data) =>{
+        console.log(data)
+    })
     return doc
 }
 
