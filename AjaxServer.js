@@ -13,9 +13,9 @@ app.get("/", (req, res)=>{
 });
 
 app.post("/formHandler", (req, res)=>{
-    console.log(req.body)
+    console.log(req.body);
     req.body.message = "Data received!";
-    res.status(200).send(req.body)
+    res.status(200).send(req.body);
 })
 
 app.listen(port,()=>{

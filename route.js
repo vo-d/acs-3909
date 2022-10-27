@@ -15,7 +15,7 @@ app.route("/formHandler")
         console.log("Form data: ", req.body);
         res.send(`received POST request: ${JSON.stringify(req.body)}`)
     });
-s.static(__dirname + "/public"));
+s.static(__dirname + "/public");
 
 
 app.listen(port)

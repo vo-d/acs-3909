@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    {% block header %}
+    <head>
+        <meta charser="UTF-8">
+        <title>Hello {{username}}</title>
+    </head>
+    {% endblock header %}
+
+    <body>
+        {% block mainbody %}
+            Default body missing
+        {% endblock mainbody %}
+        {% block footer %}
+            <p>Made with Nunjuck</p>
+        {% endblock footer %}
+    </body>
+</html>

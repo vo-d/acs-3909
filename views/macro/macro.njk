@@ -1,0 +1,10 @@
+{# 
+    macro is a function that can be use later. It can be in the same html file, njk file or in an external njk file
+ #}
+{% macro label(name, text) %}
+    <label for="{{name}}">{{text|shout}}</label>
+{% endmacro %}
+
+{% macro field(name, value='', type='text') %}
+    <input type="{{type}}" name="{{name}}" value="{{value}}">
+{% endmacro %}

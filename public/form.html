@@ -40,8 +40,8 @@
 
         //this function will be called when the response has finished
         request.addEventListener("load", ()=>{
-            let response = JSON.parse(request.responseText)
-            document.getElementById("responseText").innerHTML = response["message"]
+            let response = JSON.parse(request.responseText);
+            document.getElementById("responseText").innerHTML = response["myDate"];
         })
         //open a post request
         request.open("POST", "/formHandler");
@@ -51,6 +51,6 @@
     }
     
 
-    document.getElementById("myForm").onsubmit = sendAjax
+    document.getElementById("myForm").onsubmit = sendAjax;
 </script>
 </html>

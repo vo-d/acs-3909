@@ -1,0 +1,21 @@
+{% extends "layout/main.njk" %}
+{% import "layout/main.njk" as layout %}
+{# import macro #}
+{% import "macro/macro.njk" as form %}
+
+
+{% block mainbody %}
+    {{super()}}
+    <p>Welcome {{username}}</p>
+    
+    {# include the code of profile.njk in here #}
+    {% include "partials/profile.njk" %}
+
+    <form>
+        {{form.label("user", "username")}}
+        {{form.field("user", value=username)}}
+        {{form.label("pass", "password")}}
+        {{form.field("pass", value="password")}}
+    </form>
+
+{% endblock mainbody %}

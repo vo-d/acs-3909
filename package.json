@@ -4,14 +4,18 @@
   "description": "",
   "main": "live.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon nunjuck.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
     "multiparty": "^4.2.3",
+    "nunjucks": "^3.2.3",
     "serve-index": "^1.9.1",
     "ws": "^8.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

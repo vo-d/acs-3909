@@ -5,17 +5,33 @@
     <title>My awesome title</title>
 </head>
 <body>
-    <form method ="post" action="/formHandler" id="myForm">
-        <input type="text" name="myInput" value = "default" id = "myInput">
-        <input type = "text" name = "myOtherInput" id="myOtherInput">
-        <input type ="date" name ="myDate" id="MyDate">
-        <input type="color" name = "myColor" id="myColor">
-        <button type="submit">Send</button>
+    <form id="myForm">
+        <label for="message">Your message:</label>
+
+                <!-- this is the message part -->
+        <input type="text" name="message" value = "" id = "message">
+        <input type="submit" value = "Shout!">
     </form>
     <p id = "responseText">No shouts yet</p>
 </body>
 
 <script>
+    const ws = new WebSocket("ws:/localhost:3000/accept-msg");
     
+    // do something with response
+    // in this case the websocket print out the response data to the responseText
+    ws.onmessage = function(event){
+        document.getElementById("responseText").innerText = event.data
+    }
+    
+
+    const myForm = document.forms["myForm"];
+    myForm.onsubmit = ((e)=>{
+        e.preventDefault();
+        const formData =new FormData(myForm);
+                 
+        //only send the message part in the form by turnin it into object and get message field
+        ws.send(Object.fromEntries(formData).message) 
+    })
 </script>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>The clock</title> 
+</head> 
+<body onload="pollRandomNuber()"> 
+<p id ="randomNumber"></p>
+</body> 
+
+<script> 
+   function pollRandomNuber(){
+    fetch("/random_number")
+        .then((res)=> res.text())
+        .then((data)=>{
+            document.getElementById("randomNumber").innerText = data
+        });
+    setTimeout(pollRandomNuber, 2000)
+   }
+
+</script>
+</html>

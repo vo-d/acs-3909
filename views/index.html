@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+    {% extends "layout/main.njk" %}
+
+    {% block mainbody %}
+        {{super()}}
+        <p>Welcome {{username|shout}}</p>
+    {% endblock mainbody %}
+    {# use nunjuck without inheritance #}
+    {# <head>
+        <meta charset="UTF-8"> 
+        <title>Hello {{username}}</title>
+    </head>
+
+    <body>
+        Hello {{username | shout}}
+        Today is {{date.getDate()}}
+    </body> #}
+</html>

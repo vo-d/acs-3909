@@ -1,0 +1,11 @@
+<div class="profile">
+    <p>
+        {{username | shout}}<br>
+        Interest:
+    </p>
+    <ul>
+        {% for interest in user.Interest %}
+            <li>{{interest}}</li>
+        {% endfor %}
+    </ul>
+</div>
