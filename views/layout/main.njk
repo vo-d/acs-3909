@@ -31,7 +31,7 @@
         }
 
         // Display updates coming through websocket
-        ws.onmessage() = function(event){
+        ws.onmessage = function(event){
             console.log(event.data);
             let received = JSON.parse(event.data);
             document.querySelectorAll("*").forEach(el =>{
