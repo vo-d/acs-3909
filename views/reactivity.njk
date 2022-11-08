@@ -1,0 +1,9 @@
+{% extends "layout/main.njk" %}
+{% import "macro/reactiveVar.njk" as reactivity %}
+
+{% block mainbody %}
+    {% for v in reactiveVariables %}
+        {{reactivity.varSetter(v.varName, v.value)}}
+        <p>The variable {{v.varName}} is set to </p>{{reactivity.varDisplay(v.varName, v.value)}} <br>
+    {% endfor %}
+{% endblock mainbody %}

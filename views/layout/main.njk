@@ -15,4 +15,31 @@
             <p>Made with Nunjuck</p>
         {% endblock footer %}
     </body>
+
+    {% set version = 1 %}
+
+    <script>
+        let ws = new WebSocket("ws://localhost:5000/vars");
+
+        // Update express about variable changes;
+        function updateVariable(varName, value) {
+            let data={
+                varName: varName,
+                value: value
+            }
+            ws.send(JSON.stringify(data))
+        }
+
+        // Display updates coming through websocket
+        ws.onmessage() = function(event){
+            console.log(event.data);
+            let received = JSON.parse(event.data);
+            document.querySelectorAll("*").forEach(el =>{
+                if (el.className.toString() === received.varName){
+                    el.innerHTML = received.value;
+                }
+            })
+        }
+    </script>
 </html>
+

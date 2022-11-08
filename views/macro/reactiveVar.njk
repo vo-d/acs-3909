@@ -1,0 +1,14 @@
+{% macro varDisplay(varName, value="") %}
+    <span class="{{varName}}">{{value}}</span>
+{% endmacro %}
+
+{% macro varSetter(varName, value="", type="text") %}
+    <label for="{{varName}}">Set the value of {{varName}}: </label>
+    <input type="{{type}}" name="{{varName}}" value="{{value}}" id="{{varName}}_setter">
+    <script>
+        document.getElementById("{{varName}}_setter").onchange =
+        function(event){
+            updateVariable("{{varName}}", event.target.value)
+        }
+    </script>
+{% endmacro %}
