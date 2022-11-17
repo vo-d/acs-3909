@@ -1,0 +1,12 @@
+{% extends "layout/mainLayout.njk" %}
+
+{% block mainbody %}
+    <form action="" method="post">
+        {{form.label("familyName", "Family name")}}
+        {{form.field("familyName", student.familyName)}}
+        {{form.label("firstName", "First name")}}
+        {{form.field("firstName", student.firstName)}}
+        {{form.submit()}}
+
+    </form>
+{% endblock mainbody %}

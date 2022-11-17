@@ -1,0 +1,7 @@
+{% extends "layout/mainLayout.njk" %}
+
+{% block mainbody %}
+    {% for s in students %}
+        {{student_views.compactStudent(s)}}
+    {% endfor %}
+{% endblock mainbody %}

@@ -1,82 +1,52 @@
 const mongodb = require('mongodb');
 const mongoose = require("mongoose");
-const uri = 'mongodb+srv://teacher:acs-3909@cluster0.pinke9y.mongodb.net/express?retryWrites=true&w=majority';
-const client = new mongodb.MongoClient(uri);
+const uri = 'mongodb+srv://vo-d3129620:09022002@cluster0.ksuggsl.mongodb.net/?retryWrites=true&w=majority';
+const {Student, seedStudent} = require("./models/student_models")
+const client = new mongodb.MongoClient(uri)
 
-const courseSchema = new mongoose.Schema({
-    courseName: {
-        type: String,
-        required: true,
-    },
-    grade: {
-        type: String,
-        required: true,
-        enum: ["A+", "A", "B+", "..."]
-    },
-    credits: {
-        type: Number,
-        min: 0,
-        max: 3
-    }
-});
-const studentSchema = new mongoose.Schema({
-    familyName: {
-        type: String,
-        required: true
-    },
-    firstName: {
-        type: String,
-        required: true
-    },
-    department: {
-        type: String,
-        required: true,
-        enum: ["ACS", "PHYS", "MATH"]
-    },
-    year: {
-        type: Number,
-        required: true,
-        min: 1800,
-        max: 3000
-    },
-    gpa: {
-        type: mongoose.Decimal128,
-        min: 0.0,
-        max: 5.0
-    },
-    courses: [courseSchema],
+// Seed collection. Comment this line to not seed new
+seedStudent(uri).then(result =>{});
 
-},     {methods: {
-    getRecords() {
-        return `This student has a gpa of ${this.gpa}`
-    }
-}});
+// Setup Express
+const express = require("express");
+const nunjucks = require("nunjucks");
 
-const Student = mongoose.model("student", studentSchema);
+const app = express();
+const port = 5000;
 
-async function insert() {
-    await mongoose.connect(uri).catch(console.log);
-    const newStudent = new Student({
-        familyName: "Another",
-        firstName: "Bob",
-        department: "ACS",
-        year: 2011,
-        gpa: 4.1,
-        courses: [
-            {
-                courseName: "Adv. Int. Programming",
-                grade: "A",
-                credits: 3
-            },
-        ]
-    });
-    return result = await newStudent.save()
-}
+nunjucks.configure("views", {
+    express: app,
+    noCache: true
+})
 
+// Application level middleware
+app.use(express.urlencoded({extended:false}));
+
+// HTTP
+
+const student_routes = require("./routes/student_routes")
+app.use("/student", student_routes)
+
+
+
+app.listen(port, ()=>{
+    console.log(`app listening on port ${port}`)
+
+})
+
+
+/* 
 async function run() {
     await  mongoose.connect(uri).catch(console.log);
     const student = await Student.findOne({familyName: "Another"});
-    //return student.getRecords(console.log)
+
+    //call function
+    console.log(student.getRecords());
+    console.log(student.fullName());
+
+    // call static function (method for the whole schema)
+    console.log(await Student.listDepartmentStudent("ACS", 3.0))
+
     student.department = "ENG";
     await student.validate();
 }
@@ -84,4 +54,4 @@ async function run() {
 
 run().then(console.log)
     .catch(err => console.dir(err, {depth: null}));
-// setTimeout(() => {console.log("Done")}, 10000);
+// setTimeout(() => {console.log("Done")}, 10000); */

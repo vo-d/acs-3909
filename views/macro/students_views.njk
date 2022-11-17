@@ -1,0 +1,6 @@
+{% macro compactStudent(student) %}
+    <h2>{{ student.familyName}}, {{student.firstName}}</h2>
+    <p>Enrolled: {{student.year}}</p>
+    <p>GPA: {{student.gpa}}</p>
+    <a href="/student/edit/{{student.id}}">Edit</a>
+{% endmacro %}
