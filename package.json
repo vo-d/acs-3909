@@ -1,10 +1,10 @@
 {
   "name": "practice",
   "version": "1.0.0",
-  "description": "",
   "main": "live.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +20,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vo-d/acs-3909.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vo-d/acs-3909/issues"
+  },
+  "homepage": "https://github.com/vo-d/acs-3909#readme",
+  "description": ""
 }
