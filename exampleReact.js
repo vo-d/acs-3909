@@ -160,3 +160,47 @@ class Welcome extends React.Component {
       );
     }
 };
+
+
+//Create a Stateful Component
+class StatefulComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      // Only change code below this line
+      this.state = {
+        firstName: "dai"
+      }
+      // Only change code above this line
+    }
+    render() {
+      return (
+        <div>
+          <h1>{this.state.firstName}</h1>
+        </div>
+      );
+    }
+  };
+
+  /*There is another way to access state in a component. 
+  In the render() method, before the return statement, you can write JavaScript directly. 
+  For example, you could declare functions, access data from state or props, perform computations on this data, and so on. 
+  Then, you can assign any data to variables, which you have access to in the return statement. */
+
+class StatefulComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      // Only change code below this line
+      this.state = {
+        firstName: "dai"
+      }
+      // Only change code above this line
+    }
+    render() {
+    const firstName = this.state.firstName;
+    return (
+        <div>
+          <h1>{firstName}</h1>
+        </div>
+      );
+    }
+  };
