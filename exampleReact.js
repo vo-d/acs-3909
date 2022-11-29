@@ -213,6 +213,7 @@ class MyComponent extends React.Component {
       this.state = {
         name: 'Initial State'
       };
+      // You also need to bind every method to this class
       this.handleClick = this.handleClick.bind(this);
     }
     handleClick() {
