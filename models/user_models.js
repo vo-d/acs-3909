@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const hash = require("pbkdf2-password")();
+// const hash = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
     user: {
