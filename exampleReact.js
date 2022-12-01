@@ -553,3 +553,357 @@ class MyComponent extends React.Component {
 /* This method is a useful way to optimize performance. 
 For example, the default behavior is that your component re-renders when it receives new props or state, even if they haven't changed. 
 You can use shouldComponentUpdate() to prevent this by comparing the props or state */
+// This code will only render value when it's even
+class OnlyEvens extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Should I update?');
+    // Change code below this line
+    if(nextProps.value % 2 === 0) return true;
+    return false;
+    // Change code above this line
+  }
+  componentDidUpdate() {
+    console.log('Component re-rendered.');
+  }
+  render() {
+    return <h1>{this.props.value}</h1>;
+  }
+}
+
+class Controller extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0
+    };
+    this.addValue = this.addValue.bind(this);
+  }
+  addValue() {
+    this.setState(state => ({
+      value: state.value + 1
+    }));
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.addValue}>Add</button>
+        <OnlyEvens value={this.state.value} />
+      </div>
+    );
+  }
+}
+
+
+//Styling CSS
+class Colorful extends React.Component {
+  render() {
+    return (
+      <div style={{color:"red", fontSize:72}}>Big Red</div>
+    );
+  }
+}; 
+
+
+//Put style in object, then put object in style attribute of div
+const styles = {color: "purple", fontSize: 40, border: "2px solid purple"}
+// Change code above this line
+class Colorful extends React.Component {
+  render() {
+    // Change code below this line
+    return (
+      <div style={styles}>Style Me!</div>
+    );
+    // Change code above this line
+  }
+};
+
+
+
+//Use Advanced JavaScript in React Render Method
+/* You can also write JavaScript directly in your render methods, before the return statement, without inserting it inside of curly braces. 
+This is because it is not yet within the JSX code. 
+When you want to use a variable later in the JSX code inside the return statement, you place the variable name inside curly braces. */
+const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class MagicEightBall extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInput: '',
+      randomIndex: ''
+    };
+    this.ask = this.ask.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  ask() {
+    if (this.state.userInput) {
+      this.setState({
+        randomIndex: Math.floor(Math.random() * 20),
+        userInput: ''
+      });
+    }
+  }
+  handleChange(event) {
+    this.setState({
+      userInput: event.target.value
+    });
+  }
+  render() {
+    const possibleAnswers = [
+      'It is certain',
+      'It is decidedly so',
+      'Without a doubt',
+      'Yes, definitely',
+      'You may rely on it',
+      'As I see it, yes',
+      'Outlook good',
+      'Yes',
+      'Signs point to yes',
+      'Reply hazy try again',
+      'Ask again later',
+      'Better not tell you now',
+      'Cannot predict now',
+      'Concentrate and ask again',
+      "Don't count on it",
+      'My reply is no',
+      'My sources say no',
+      'Most likely',
+      'Outlook not so good',
+      'Very doubtful'
+    ];
+    const answer = possibleAnswers[this.state.randomIndex]; // Change this line
+    return (
+      <div>
+        <input
+          type='text'
+          value={this.state.userInput}
+          onChange={this.handleChange}
+          style={inputStyle}
+        />
+        <br />
+        <button onClick={this.ask}>Ask the Magic Eight Ball!</button>
+        <br />
+        <h3>Answer:</h3>
+        <p>
+          {/* Change code below this line */}
+          {answer}
+          {/* Change code above this line */}
+        </p>
+      </div>
+    );
+  }
+}
+
+
+//Render with an If-Else Condition
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState((state) => ({
+      // Negate existing boolean
+      display: !state.display
+    }));
+  }
+  render() {
+    // Change code below this line
+    if(this.state.display === true){
+      return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+         <h1>Displayed!</h1>
+       </div>
+      );
+    }
+    else{
+      return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+
+       </div>
+    );
+    }
+    
+  }
+};
+
+
+//Use && for a More Concise Conditional
+/* If you write a lot of else if statements to return slightly different UIs, you may repeat code which leaves room for error. 
+Instead, you can use the && logical operator to perform conditional logic in a more concise way.
+
+{condition && <p>markup</p>}
+
+If the condition is true, the markup will be returned.
+If the condition is false, the operation will immediately return false after evaluating the condition and return nothing. */
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState(state => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Change code below this line
+    return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+         {this.state.display ===true && <h1>Displayed!</h1>}
+       </div>
+    );
+  }
+};
+
+
+//Use a Ternary Expression for Conditional Rendering
+
+//condition ? expressionIfTrue : expressionIfFalse;
+const Style = {
+  width: 235,
+  margin: 5
+};
+
+class CheckUserAge extends React.Component {
+  constructor(props) {
+    super(props);
+    // Change code below this line
+this.state = {
+  input: '',
+  userAge:''
+}
+    // Change code above this line
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      input: e.target.value,
+      userAge: ''
+    });
+  }
+  submit() {
+    this.setState(state => ({
+      userAge: state.input
+    }));
+  }
+  render() {
+    const buttonOne = <button onClick={this.submit}>Submit</button>;
+    const buttonTwo = <button>You May Enter</button>;
+    const buttonThree = <button>You Shall Not Pass</button>;
+    return (
+      <div>
+        <h3>Enter Your Age to Continue</h3>
+        <input
+          style={Style}
+          type='number'
+          value={this.state.input}
+          onChange={this.handleChange}
+        />
+        <br />
+        {/* Change code below this line */}
+        {this.state.userAge === ''? 
+        buttonOne : this.state.userAge >= 18? 
+        buttonTwo : buttonThree}
+        {/* Change code above this line */}
+      </div>
+    );
+  }
+}
+
+
+//Render Conditionally from Props
+class Results extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    {/* Change code below this line */}
+    const youwin = <h1>You Win!</h1>;
+    const youlose = <h1>You Lose!</h1>;
+    return this.props.fiftyFifty? youwin : youlose
+    {/* Change code above this line */}
+  }
+}
+
+class GameOfChance extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1
+      
+    });
+  }
+  render() {
+    const expression = Math.random() >= .5; // Change this line
+    return (
+      <div>
+        <button onClick={this.handleClick}>Play Again</button>
+        {/* Change code below this line */}
+<Results fiftyFifty = {expression} />
+        {/* Change code above this line */}
+        <p>{'Turn: ' + this.state.counter}</p>
+      </div>
+    );
+  }
+}
+
+
+//Change Inline CSS Conditionally Based on Component State
+// Change CSS if input is more than 15 character
+class GateKeeper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ input: event.target.value })
+  }
+  render() {
+    let inputStyle = {
+      border: '1px solid black'
+    };
+    // Change code below this line
+if (this.state.input.length > 15){
+  inputStyle ={
+    border: '3px solid red'
+  }
+}
+    // Change code above this line
+    return (
+      <div>
+        <h3>Don't Type Too Much:</h3>
+        <input
+          type="text"
+          style={inputStyle}
+          value={this.state.input}
+          onChange={this.handleChange} />
+      </div>
+    );
+  }
+};
