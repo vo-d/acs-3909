@@ -468,14 +468,14 @@ componentWillMount() componentDidMount() shouldComponentUpdate() componentDidUpd
 
 The next several lessons will cover some of the basic use cases for these lifecycle methods. */
 
-// This will console log aaaaa before rendering div
+// This will console log aaaaa before rendering div thanks for componentWillMount()
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
   }
   componentWillMount() {
     // Change code below this line
-console.log("aaaaa")
+    console.log("aaaaa")
     // Change code above this line
   }
   render() {
@@ -483,3 +483,73 @@ console.log("aaaaa")
   }
 };
 
+
+// This will set state activeUsers to 1273 after 2.5 seconds of rendering thanks for componentDidMount()
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUsers: null
+    };
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        activeUsers: 1273
+      });
+    }, 2500);
+  }
+  render() {
+    return (
+      <div>
+        {/* Change code below this line */}
+        <h1>Active Users: {this.state.activeUsers}</h1>
+        {/* Change code above this line */}
+      </div>
+    );
+  }
+}
+
+
+//Add Event Listeners
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: ''
+    };
+    this.handleEnter = this.handleEnter.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+  // Change code below this line
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress)
+  }
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress)
+  }
+  // Change code above this line
+  handleEnter() {
+    this.setState((state) => ({
+      message: state.message + 'You pressed the enter key! '
+    }));
+  }
+  handleKeyPress(event) {
+    if (event.keyCode === 13) {
+      this.handleEnter();
+    }
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+      </div>
+    );
+  }
+};
+
+
+// shouldComponentUpdate()
+/* This method is a useful way to optimize performance. 
+For example, the default behavior is that your component re-renders when it receives new props or state, even if they haven't changed. 
+You can use shouldComponentUpdate() to prevent this by comparing the props or state */
