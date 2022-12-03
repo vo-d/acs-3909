@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
 // Create a Simple JSX Element
@@ -1030,6 +1030,54 @@ class MyComponent extends React.Component {
     );
   }
 }
+
+
+//Hook
+
+// useState
+function App1(){
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  )
+}
+
+
+// useEffect
+//Use the Lifecycle Method above
+
+function App2(){
+  const [count, setCount] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  // run when mounted, and run when changes
+  useEffect(()=>{
+    alert('Hello side effect!')
+  })
+
+  // run when count change. In this case, count is a dependency
+  useEffect(()=>{
+    fetch('foo').then(()=> setLoaded(true))
+  },[count])
+
+  // run when the component is removed from UI
+  useEffect(()=>{
+    alert('Hello side effect!')
+
+    return () => alert('goodye component')
+  })
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  )
+}
+
+
+
 
 
 //Render React on the Server with renderToString
