@@ -1078,8 +1078,6 @@ function App2(){
 
 
 
-
-
 //Render React on the Server with renderToString
 class App extends React.Component {
   constructor(props) {
