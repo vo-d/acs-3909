@@ -1,12 +1,9 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
-import {MongoClient} from 'mongodb'
+import {MongoClient, ObjectId} from 'mongodb'
 
 function MeetupDetails(props){
     return (
-        <MeetupDetail  image="https://upload.wikimedia.org/wikipedia/commons/c/cd/Matera_from_Piazzetta_Pascoli-2930.jpg" 
-        title="First meetup"  
-        address ="SOme stree" 
-        description ="this is the first meetup"
+        <MeetupDetail image={props.meetupData.image} title={props.meetupData.title} address={props.meetupData.address} description={props.meetupData.description}
         />
     )
 }
@@ -16,14 +13,20 @@ export async function getStaticProps(context){
     
     const meetupId = context.params.meetupId;
     console.log(meetupId)
+
+    const client = await MongoClient.connect('mongodb+srv://vo-d3129620:09022002@cluster0.ksuggsl.mongodb.net/?retryWrites=true&w=majority');
+    const myCol = client.db('test').collection('meetups')
+
+    const selectedMeetup = await myCol.findOne({_id: ObjectId(meetupId)})
+    client.close();
     return{
         props:{
             meetupData: {
-                id: meetupId,
-                image: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Matera_from_Piazzetta_Pascoli-2930.jpg" ,
-                title: "First meetup"  ,
-                address: "SOme stree" ,
-                description: "this is the first meetup"
+                id: selectedMeetup._id.toString(),
+                title: selectedMeetup.title,
+                address: selectedMeetup.address,
+                image: selectedMeetup.image,
+                description: selectedMeetup.description
             }
         }
     }
@@ -37,6 +40,7 @@ export async function getStaticPaths(){
     const myCol = client.db('test').collection('meetups')
 
     const meetups = await myCol.find({},{_id:1}).toArray();
+    client.close();
     return {
         fallback: false,
         paths: meetups.map((meetup) => ({params:{meetupId:meetup._id.toString()}}))
