@@ -1,11 +1,20 @@
 import MeetupList from '../components/meetups/MeetupList'
 import {MongoClient} from 'mongodb'
+import Head from 'next/head';
+import { Fragment } from 'react';
 
 function HomePage(props){
   
 
   return (
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta name="description" content='Browse a huge list of highly active React Meetups'></meta>
+      </Head>
       <MeetupList meetups = {props.meetups} />
+    </Fragment>
+    
     )
 }
 // This will run in the build process
