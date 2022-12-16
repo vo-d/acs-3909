@@ -2,6 +2,7 @@ const mongodb = require('mongodb');
 const mongoose = require("mongoose");
 const uri = 'mongodb+srv://teacher:acs-3909@cluster0.pinke9y.mongodb.net/express?retryWrites=true&w=majority';
 const client = new mongodb.MongoClient(uri);
+mongoose.connect(uri)
 
 const courseSchema = new mongoose.Schema({
     courseName: {

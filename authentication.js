@@ -1,7 +1,7 @@
 const mongodb = require("mongodb");
 const mongoose = require("mongoose");
 const {MONGODB, SESSION} = require("./credentials");
-const uri = `mongodb+srv://vo-d3129620:09022002@cluster0.ksuggsl.mongodb.net/?retryWrites=true&w=majority`
+const uri =  m 
 const {User, seedUser} = require("./models/user_models.js")
 
 // Seed database
